@@ -1,33 +1,14 @@
+import Link from "next/link"
 
-import { getAuthSession } from "@/app/api/auth/[...nextauth]/route"
-import Banner from "@/content/profile/Banner"
-import CategoryMain from "@/content/profile/CategoryMain"
-import { UserProfile } from "@/lib/AnilistUser"
-import { redirect } from "next/navigation"
-import { Fragment } from "react"
-
-const Page = async () => {
-  const session = await getAuthSession();
-
-  if (!session || !session.user) {
-    redirect('/');
-  }
-
-  const data = await UserProfile(session?.user?.token, session?.user?.name);
-  const { user, lists } = data;
-
-  const watchedAnime = lists.find(item => item?.status === "COMPLETED")
-
+export default function ProfilePage() {
   return (
-    <Fragment>
-      <Banner info={user} data={watchedAnime} />
-      <CategoryMain lists={lists} user={user} watchedAnime={watchedAnime} />
-
-      {/* background */}
-      <div className="fixed w-[138.33px] h-[82.25px] left-[1%] top-[2%] bg-[#92b7fc8f] blur-[200px]"></div>
-      <div className="fixed w-[500px] h-[370.13px] right-[50%] bottom-[50%] bg-[#576683b4] blur-[215.03px] translate-x-[70%] z-0 rounded-full"></div>
-    </Fragment>
+    <main className="main-responsive relative top-[86px] mx-auto flex w-full max-w-[96rem] flex-col gap-8 pb-32 pt-8">
+      <section className="rounded-3xl border border-white/10 bg-white/[0.04] p-8">
+        <p className="text-sm uppercase tracking-[0.25em] text-[#9b8cff]">Public profile</p>
+        <h1 className="mt-3 text-3xl font-semibold text-white">Guest viewer</h1>
+        <p className="mt-3 max-w-xl text-white/60">Nikmati Taro sebagai tamu. Tidak perlu membuat akun untuk menonton, mencari, atau menyimpan progres tontonan di perangkat ini.</p>
+        <Link href="/catalog" className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-medium text-[#12111a] transition hover:bg-white/80">Jelajahi katalog</Link>
+      </section>
+    </main>
   )
 }
-
-export default Page

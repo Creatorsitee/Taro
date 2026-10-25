@@ -4,8 +4,6 @@ import Header from "@/partials/header/Header";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Analytics } from '@vercel/analytics/react';
-import { AuthProvider } from "./SessionProvider";
-import { getAuthSession } from "./api/auth/[...nextauth]/route";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -135,17 +133,12 @@ export const metadata = {
 };
 
 
-export default async function RootLayout({ children }) {
-  const session = await getAuthSession();
-
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider session={session}>
-          <Header />
-          {children}
-          {/* <Footer /> */}
-        </AuthProvider>
+        <Header />
+        {children}
 
         <Analytics />
         <ToastContainer draggable theme="dark" />

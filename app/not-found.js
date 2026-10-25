@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa6";
 
 export default function Custom404() {
@@ -19,7 +20,7 @@ export default function Custom404() {
             {/* <div className="text-[#ffffffc2]">This page has gone Super Saiyan and disappeared!</div> */}
 
             <div className="w-full max-[700px]:flex max-[700px]:justify-center max-[700px]:mt-4">
-              <button className="w-max h-max mt-5 hover:bg-slate-900 duration-100 text-white px-4 py-2 backdrop-blur-md text-[14px] border-[1px] border-[#ffffff4b] rounded-xl flex gap-2 items-center">Back To Homepage <span className="mt-[3px]"><FaArrowRight /></span></button>
+              <Link href="/" className="w-max h-max mt-5 hover:bg-slate-900 duration-100 text-white px-4 py-2 backdrop-blur-md text-[14px] border-[1px] border-[#ffffff4b] rounded-xl flex gap-2 items-center">Back To Homepage <span className="mt-[3px]"><FaArrowRight /></span></Link>
             </div>
 
           </div>
