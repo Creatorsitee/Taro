@@ -1,7 +1,15 @@
+import path from 'node:path'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  transpilePackages: ['@consumet/extensions', 'got-scraping'],
+  webpack: (config) => {
+    config.resolve.alias['got-scraping$'] = path.join(process.cwd(), 'node_modules/got-scraping/dist/index.js')
+    config.resolve.alias['node:vm'] = false
+    return config
+  },
   images: {
     domains: [
       's4.anilist.co',

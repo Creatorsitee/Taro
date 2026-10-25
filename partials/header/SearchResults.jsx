@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
-import Anilist from "@consumet/extensions/dist/providers/meta/anilist";
 
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -73,9 +72,10 @@ const SearchResults = ({ searchValue }) => {
       return;
     }
     try {
-      const anilist_consumet = new Anilist()
+      const response = await fetch(`/api/anime/search?q=${encodeURIComponent(debouncedSearchValue)}`)
+      if (!response.ok) throw new Error("Search request failed")
 
-      const dataJSON = await anilist_consumet.search(debouncedSearchValue)
+      const dataJSON = await response.json()
       if (dataJSON?.results?.length === 0) {
         setData("NO_RESULT_FOUND");
       } else {
